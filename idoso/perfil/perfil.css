@@ -1,0 +1,6 @@
+.informacao-perfil {
+    margin-top: 24px;
+    border-radius: 12px;
+    padding: 18px;
+    background: var(--cor-medicamento);
+}

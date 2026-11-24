@@ -1,0 +1,10 @@
+.acoes-atividade {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.acoes-atividade .botao {
+    flex: 1 1 0%;
+}

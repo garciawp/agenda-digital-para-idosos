@@ -1,0 +1,1 @@
+iniciarPagina(prepararInicio);

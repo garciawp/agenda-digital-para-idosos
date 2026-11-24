@@ -1,0 +1,27 @@
+.escolha-perfil {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0px, 1fr));
+    gap: 12px;
+}
+
+.opcao-perfil {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 76px;
+    border-radius: 12px;
+    padding: 14px;
+    background: var(--cor-outros);
+    cursor: pointer;
+}
+
+.opcao-perfil:has(input:checked) {
+    background: var(--cor-consulta);
+    box-shadow: inset 0 0 0 2px var(--cor-principal);
+}
+
+@media (max-width: 460px) {
+    .escolha-perfil {
+        grid-template-columns: 1fr;
+    }
+}

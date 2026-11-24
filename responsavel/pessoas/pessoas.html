@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#faf7f2">
+    <meta name="description" content="Agenda Digital para Idosos | Medicamentos, compromissos e eventos.">
+    <title>Pessoas que você acompanha | Agenda Digital para Idosos</title>
+    <link rel="icon" type="image/png" href="../../recursos/imagens/logo.png">
+    <link rel="stylesheet" href="../../recursos/estilos/geral.css">
+    <link rel="stylesheet" href="pessoas.css">
+    <script src="../../recursos/bibliotecas/supabase-2.119.1.js" defer=""></script>
+    <script src="../../recursos/scripts/configuracao.js" defer=""></script>
+    <script src="../../recursos/scripts/banco.js" defer=""></script>
+    <script src="../../recursos/scripts/dados.js" defer=""></script>
+    <script src="../../recursos/scripts/geral.js" defer=""></script>
+    <script src="pessoas.js" defer=""></script>
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
+    <header id="cabecalho" class="cabecalho">
+      <a class="marca" href="pessoas.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <div class="acoes-cabecalho">
+        <span class="usuario-cabecalho"></span>
+        <button type="button" class="botao ligacao" data-acao="sair"><span class="icone" aria-hidden="true">logout</span><span class="texto-botao"> Sair</span></button>
+      </div>
+    </header>
+    <section id="estado-conexao" class="painel pagina-acesso" role="status">
+      <p data-mensagem="">Conectando sua agenda...</p>
+      <button type="button" class="botao contorno" data-tentar-novamente="" hidden="">Tentar novamente</button>
+      <a class="botao suave" href="../../paginas/entrar/entrar.html">Ir para o acesso</a>
+    </section>
+    <main id="conteudo" tabindex="-1" data-pagina="pessoas" data-perfil="RESPONSAVEL" hidden="">
+      <div class="titulo-pagina">
+        <div>
+          <h1>Pessoas que você acompanha</h1>
+          <p class="texto-secundario">Escolha quem você deseja acompanhar hoje.</p>
+        </div>
+        <div class="acoes-titulo">
+          <a class="botao principal" href="../vincular-idoso/vincular-idoso.html"><span class="icone" aria-hidden="true">person_add</span>Vincular pessoa idosa</a>
+        </div>
+      </div>
+      <div class="grade" id="lista-pessoas">
+      </div>
+      <div class="sem-registros" id="lista-vazia" hidden="">
+        <span class="icone" aria-hidden="true">event_available</span>
+        <p>Nenhum registro encontrado.</p>
+      </div>
+      <template id="modelo-pessoa">
+        <article class="cartao-pessoa">
+          <div class="titulo-pessoa">
+            <span class="retrato-pessoa" aria-hidden="true"></span>
+            <div>
+              <h2></h2>
+              <span class="etiqueta concluido">Vínculo ativo</span>
+            </div>
+          </div>
+          <a class="botao principal" data-agenda="">Abrir agenda</a>
+          <a class="botao suave" data-dados="">Ver dados da pessoa</a>
+        </article>
+      </template>
+      <section class="secao">
+        <h2>Solicitações enviadas</h2>
+        <div id="lista-pedidos">
+        </div>
+      </section>
+      <template id="modelo-pedido">
+        <article class="painel solicitacao">
+          <div>
+            <h3></h3>
+            <p data-situacao=""></p>
+          </div>
+          <button type="button" class="botao contorno">Cancelar solicitação</button>
+        </article>
+      </template>
+    </main>
+    <nav class="navegacao-inferior" aria-label="Navegação principal" data-perfil="RESPONSAVEL">
+      <a class="item-navegacao" href="pessoas.html" aria-current="page"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
+      <a class="item-navegacao" href="../inicio/inicio.html"><span class="icone" aria-hidden="true">home</span><span>Início</span></a>
+      <a class="item-navegacao" href="../agenda/agenda.html"><span class="icone" aria-hidden="true">event_note</span><span>Agenda</span></a>
+      <a class="item-navegacao" href="../perfil/perfil.html"><span class="icone" aria-hidden="true">account_circle</span><span>Perfil</span></a>
+    </nav>
+    <div id="aviso" class="aviso-flutuante" role="status" aria-live="polite" hidden="">
+    </div>
+    <dialog id="dialogo" aria-labelledby="titulo-dialogo">
+      <h2 id="titulo-dialogo">Confirmar ação</h2>
+      <p id="descricao-dialogo"></p>
+      <form method="dialog" class="acoes-dialogo">
+        <button class="botao contorno" value="cancel" autofocus=""><span class="texto-botao">Voltar</span></button>
+        <button class="botao principal" value="ok" id="confirmar-dialogo"><span class="texto-botao">Confirmar</span></button>
+      </form>
+    </dialog>
+  </body>
+</html>

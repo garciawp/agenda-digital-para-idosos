@@ -1,0 +1,25 @@
+.cartao-pessoa {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 24px;
+    border-radius: var(--arredondamento);
+    background: var(--cor-painel);
+}
+
+.cartao-pessoa > .botao.principal {
+    margin-top: auto;
+}
+
+.cartao-pessoa .etiqueta {
+    margin-top: 6px;
+}
+
+.cartao-pessoa.nova-pessoa {
+    background: var(--cor-consulta);
+}
+
+.cartao-pessoa.nova-pessoa > .icone {
+    font-size: 34px;
+    color: var(--cor-principal);
+}

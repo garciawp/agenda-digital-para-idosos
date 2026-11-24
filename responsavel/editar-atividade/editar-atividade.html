@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#faf7f2">
+    <meta name="description" content="Agenda Digital para Idosos | Medicamentos, compromissos e eventos.">
+    <title>Editar atividade | Agenda Digital para Idosos</title>
+    <link rel="icon" type="image/png" href="../../recursos/imagens/logo.png">
+    <link rel="stylesheet" href="../../recursos/estilos/geral.css">
+    <link rel="stylesheet" href="editar-atividade.css">
+    <script src="../../recursos/bibliotecas/supabase-2.119.1.js" defer=""></script>
+    <script src="../../recursos/scripts/configuracao.js" defer=""></script>
+    <script src="../../recursos/scripts/banco.js" defer=""></script>
+    <script src="../../recursos/scripts/dados.js" defer=""></script>
+    <script src="../../recursos/scripts/geral.js" defer=""></script>
+    <script src="../../recursos/scripts/formulario-atividade.js" defer=""></script>
+    <script src="editar-atividade.js" defer=""></script>
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
+    <header id="cabecalho" class="cabecalho">
+      <a class="marca" href="../pessoas/pessoas.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <div class="acoes-cabecalho">
+        <span class="usuario-cabecalho"></span>
+        <button type="button" class="botao ligacao" data-acao="sair"><span class="icone" aria-hidden="true">logout</span><span class="texto-botao"> Sair</span></button>
+      </div>
+    </header>
+    <section id="estado-conexao" class="painel pagina-acesso" role="status">
+      <p data-mensagem="">Conectando sua agenda...</p>
+      <button type="button" class="botao contorno" data-tentar-novamente="" hidden="">Tentar novamente</button>
+      <a class="botao suave" href="../../paginas/entrar/entrar.html">Ir para o acesso</a>
+    </section>
+    <main id="conteudo" tabindex="-1" data-pagina="atividade" data-perfil="RESPONSAVEL" hidden="">
+      <div class="pessoa-selecionada">
+        <div class="titulo-pessoa">
+          <span class="retrato-pessoa" aria-hidden="true"></span>
+          <div>
+            <small>Pessoa acompanhada</small>
+            <strong></strong>
+          </div>
+        </div>
+        <a class="botao" href="../pessoas/pessoas.html"><span class="icone" aria-hidden="true">swap_horiz</span>Trocar pessoa</a>
+      </div>
+      <div class="titulo-pagina">
+        <div>
+          <h1>Editar atividade</h1>
+          <p class="texto-secundario">Informe os detalhes e quando deve acontecer.</p>
+        </div>
+      </div>
+      <section class="painel painel-formulario">
+        <form class="formulario" data-id="1" data-formulario="atividade" aria-describedby="erro-formulario" method="post">
+          <div class="erro-formulario" role="alert" tabindex="-1" hidden="" id="erro-formulario">
+          </div>
+          <div class="grade-formulario">
+            <div class="campo">
+              <label for="tipo">Tipo de atividade</label>
+              <select name="tipo" id="tipo" disabled="">
+                <option value="COMPROMISSO">Compromisso</option>
+                <option value="EVENTO">Evento</option>
+                <option value="MEDICAMENTO" selected="">Medicamento</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label for="id_categoria">Categoria</label>
+              <select name="id_categoria" id="id_categoria" required="">
+                <option value="1">Medicamento</option>
+                <option value="2">Aniversário</option>
+                <option value="3">Igreja</option>
+                <option value="4">Consulta</option>
+                <option value="5">Exame</option>
+                <option value="6">Atividade física</option>
+                <option value="7">Família</option>
+                <option value="8">Lazer</option>
+                <option value="9">Outros</option>
+              </select>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="titulo">Título</label>
+            <input id="titulo" name="titulo" type="text" required="" minlength="2" maxlength="150">
+            <small>Exemplo: consulta com dentista ou medicamento da manhã.</small>
+          </div>
+          <div id="campos-medicamento" class="pilha">
+            <div class="campo">
+              <label for="dose">Dose</label>
+              <input id="dose" name="dose" type="text" maxlength="120" required="">
+              <small>Transcreva a dose informada para o cadastro.</small>
+            </div>
+            <div class="campo">
+              <label for="instrucoes_medicamento">Instruções (opcional)</label>
+              <textarea id="instrucoes_medicamento" name="instrucoes_medicamento" maxlength="2000"></textarea>
+            </div>
+          </div>
+          <div class="grade-formulario">
+            <div class="campo">
+              <label for="frequencia">Repetição</label>
+              <select id="frequencia" name="frequencia">
+                <option value="UNICA">Uma única vez</option>
+                <option value="DIARIA" selected="">Todos os dias</option>
+                <option value="SEMANAL">Dias da semana</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label for="data_inicio">Data de início</label>
+              <input id="data_inicio" name="data_inicio" type="date" required="">
+            </div>
+            <div id="campo-termino">
+              <div class="campo">
+                <label for="data_fim">Data de término (opcional)</label>
+                <input id="data_fim" name="data_fim" type="date">
+                <small>Deixe em branco se não houver término definido.</small>
+              </div>
+            </div>
+          </div>
+          <fieldset id="campo-semana" hidden="">
+            <legend>Em quais dias?</legend>
+            <div class="dias-selecionaveis">
+              <label><input type="checkbox" name="dias_semana" value="0" disabled="">Dom</label>
+              <label><input type="checkbox" name="dias_semana" value="1" disabled="">Seg</label>
+              <label><input type="checkbox" name="dias_semana" value="2" disabled="">Ter</label>
+              <label><input type="checkbox" name="dias_semana" value="3" disabled="">Qua</label>
+              <label><input type="checkbox" name="dias_semana" value="4" disabled="">Qui</label>
+              <label><input type="checkbox" name="dias_semana" value="5" disabled="">Sex</label>
+              <label><input type="checkbox" name="dias_semana" value="6" disabled="">Sáb</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Horários</legend>
+            <p class="texto-secundario">Os horários se repetem nos dias selecionados.</p>
+            <div id="lista-horarios">
+              <div class="linha-horario">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario" hidden="">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início" disabled="">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario" hidden="">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início" disabled="">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario" hidden="">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início" disabled="">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario" hidden="">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início" disabled="">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario" hidden="">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início" disabled="">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario" hidden="">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início" disabled="">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario" hidden="">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início" disabled="">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario" hidden="">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início" disabled="">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario" hidden="">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início" disabled="">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+              <div class="linha-horario" hidden="">
+                <div class="campo">
+                  <input type="time" name="horario_visivel" required="" aria-label="Horário de início" disabled="">
+                </div>
+                <button type="button" class="botao contorno" aria-label="Remover horário" data-acao="remover-horario"><span class="icone" aria-hidden="true">close</span></button>
+              </div>
+            </div>
+            <div class="linha secao">
+              <button type="button" class="botao suave" id="adicionar-horario" data-acao="adicionar-horario"><span class="icone" aria-hidden="true">add</span><span class="texto-botao">Adicionar horário</span></button>
+            </div>
+          </fieldset>
+          <div class="campo">
+            <label for="local">Local (opcional)</label>
+            <input id="local" name="local" type="text" maxlength="200">
+          </div>
+          <div class="campo">
+            <label for="observacoes">Observações (opcional)</label>
+            <textarea id="observacoes" name="observacoes" maxlength="2000"></textarea>
+          </div>
+          <p class="texto-secundario">As alterações serão usadas nos próximos horários. O histórico anterior será preservado.</p>
+          <div class="linha">
+            <button class="botao principal" type="submit"><span class="texto-botao">Salvar atividade</span></button>
+            <a class="botao contorno" href="../atividades/atividades.html">Cancelar</a>
+          </div>
+        </form>
+      </section>
+    </main>
+    <nav class="navegacao-inferior" aria-label="Navegação principal" data-perfil="RESPONSAVEL">
+      <a class="item-navegacao" href="../pessoas/pessoas.html"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
+      <a class="item-navegacao" href="../inicio/inicio.html"><span class="icone" aria-hidden="true">home</span><span>Início</span></a>
+      <a class="item-navegacao" href="../agenda/agenda.html" aria-current="page"><span class="icone" aria-hidden="true">event_note</span><span>Agenda</span></a>
+      <a class="item-navegacao" href="../perfil/perfil.html"><span class="icone" aria-hidden="true">account_circle</span><span>Perfil</span></a>
+    </nav>
+    <div id="aviso" class="aviso-flutuante" role="status" aria-live="polite" hidden="">
+    </div>
+    <dialog id="dialogo" aria-labelledby="titulo-dialogo">
+      <h2 id="titulo-dialogo">Confirmar ação</h2>
+      <p id="descricao-dialogo"></p>
+      <form method="dialog" class="acoes-dialogo">
+        <button class="botao contorno" value="cancel" autofocus=""><span class="texto-botao">Voltar</span></button>
+        <button class="botao principal" value="ok" id="confirmar-dialogo"><span class="texto-botao">Confirmar</span></button>
+      </form>
+    </dialog>
+  </body>
+</html>

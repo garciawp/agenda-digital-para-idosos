@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#faf7f2">
+    <meta name="description" content="Agenda Digital para Idosos | Medicamentos, compromissos e eventos.">
+    <title>Uma agenda para cuidar do dia a dia. | Agenda Digital para Idosos</title>
+    <link rel="icon" type="image/png" href="../../recursos/imagens/logo.png">
+    <link rel="stylesheet" href="../../recursos/estilos/geral.css">
+    <link rel="stylesheet" href="apresentacao.css">
+    <script src="../../recursos/bibliotecas/supabase-2.119.1.js" defer=""></script>
+    <script src="../../recursos/scripts/configuracao.js" defer=""></script>
+    <script src="../../recursos/scripts/banco.js" defer=""></script>
+    <script src="../../recursos/scripts/dados.js" defer=""></script>
+    <script src="../../recursos/scripts/geral.js" defer=""></script>
+    <script src="apresentacao.js" defer=""></script>
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
+    <header id="cabecalho" class="cabecalho">
+      <a class="marca" href="apresentacao.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <div class="acoes-cabecalho">
+        <a class="botao suave" href="../entrar/entrar.html">Entrar</a>
+      </div>
+    </header>
+    <section id="estado-conexao" class="painel pagina-acesso" role="status" hidden="">
+      <p data-mensagem="">Conectando sua agenda...</p>
+      <button type="button" class="botao contorno" data-tentar-novamente="" hidden="">Tentar novamente</button>
+      <a class="botao suave" href="../../paginas/entrar/entrar.html">Ir para o acesso</a>
+    </section>
+    <main id="conteudo" tabindex="-1" data-pagina="apresentacao" data-perfil="">
+      <section class="apresentacao">
+        <div class="texto-apresentacao">
+          <p class="identificacao">Agenda Digital para Idosos</p>
+          <h1>Uma agenda para cuidar do dia a dia.</h1>
+          <p>Medicamentos, consultas e momentos importantes, organizados por horário.</p>
+          <p>Você acompanha seu dia. Seu responsável ajuda a organizar.</p>
+          <div class="linha">
+            <a class="botao principal" href="../cadastrar/cadastrar.html"><span class="icone" aria-hidden="true">person_add</span>Criar minha conta</a>
+            <a class="botao contorno" href="../entrar/entrar.html">Já tenho uma conta</a>
+          </div>
+        </div>
+        <div class="exemplo-agenda" aria-label="Exemplo ilustrativo de uma agenda">
+          <div class="titulo-exemplo">
+            <h2>Bom dia, Maria</h2>
+            <span class="icone" aria-hidden="true">today</span>
+          </div>
+          <p class="data-exemplo">Veja um exemplo do seu dia.</p>
+          <div class="cartao-exemplo" data-categoria="medicamento">
+            <time datetime="08:00">08:00</time>
+            <div>
+              <strong>Medicamento</strong>
+              <small>Confira as orientações cadastradas.</small>
+            </div>
+            <span class="icone-exemplo"><span class="icone" aria-hidden="true">medication</span></span>
+          </div>
+          <div class="cartao-exemplo" data-categoria="consulta">
+            <time datetime="09:00">09:00</time>
+            <div>
+              <strong>Consulta médica</strong>
+              <small>Consultório · Consulta</small>
+            </div>
+            <span class="icone-exemplo"><span class="icone" aria-hidden="true">stethoscope</span></span>
+          </div>
+          <div class="cartao-exemplo" data-categoria="aniversario">
+            <time datetime="16:00">16:00</time>
+            <div>
+              <strong>Aniversário em família</strong>
+              <small>Um momento para estar junto.</small>
+            </div>
+            <span class="icone-exemplo"><span class="icone" aria-hidden="true">cake</span></span>
+          </div>
+          <p class="observacao-exemplo">Exemplo ilustrativo. Sua agenda terá as atividades cadastradas para você.</p>
+        </div>
+      </section>
+      <div class="titulo-secao">
+        <h2>Como vocês começam</h2>
+      </div>
+      <section class="grade etapas-apresentacao">
+        <article class="etapa-apresentacao">
+          <span class="numero-etapa" aria-hidden="true">1</span>
+          <div>
+            <h3>Cada um cria sua conta</h3>
+            <p>Uma conta para a pessoa idosa e outra para o responsável.</p>
+          </div>
+        </article>
+        <article class="etapa-apresentacao">
+          <span class="numero-etapa" aria-hidden="true">2</span>
+          <div>
+            <h3>Vocês se vinculam</h3>
+            <p>O responsável envia uma solicitação. A pessoa idosa escolhe se aceita.</p>
+          </div>
+        </article>
+        <article class="etapa-apresentacao">
+          <span class="numero-etapa" aria-hidden="true">3</span>
+          <div>
+            <h3>Acompanhem cada dia</h3>
+            <p>O responsável organiza. A pessoa idosa consulta e confirma o que realizou.</p>
+          </div>
+        </article>
+      </section>
+      <section class="convite-cadastro">
+        <div>
+          <h2>Hoje e nos próximos dias</h2>
+          <p>Escolha uma data e veja tudo o que está programado.</p>
+        </div>
+        <a href="../cadastrar/cadastrar.html" class="botao principal">Criar minha conta <span class="icone" aria-hidden="true">arrow_forward</span></a>
+      </section>
+      <footer class="rodape-apresentacao">
+        Projeto Integrador II · IFPR
+        <br>
+        Agenda Digital para Idosos
+      </footer>
+    </main>
+    <nav class="navegacao-inferior" aria-label="Navegação principal" hidden="" data-perfil="">
+    </nav>
+    <div id="aviso" class="aviso-flutuante" role="status" aria-live="polite" hidden="">
+    </div>
+    <dialog id="dialogo" aria-labelledby="titulo-dialogo">
+      <h2 id="titulo-dialogo">Confirmar ação</h2>
+      <p id="descricao-dialogo"></p>
+      <form method="dialog" class="acoes-dialogo">
+        <button class="botao contorno" value="cancel" autofocus=""><span class="texto-botao">Voltar</span></button>
+        <button class="botao principal" value="ok" id="confirmar-dialogo"><span class="texto-botao">Confirmar</span></button>
+      </form>
+    </dialog>
+  </body>
+</html>

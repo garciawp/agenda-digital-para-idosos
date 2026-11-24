@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#faf7f2">
+    <meta name="description" content="Agenda Digital para Idosos | Medicamentos, compromissos e eventos.">
+    <title>Seu responsável | Agenda Digital para Idosos</title>
+    <link rel="icon" type="image/png" href="../../recursos/imagens/logo.png">
+    <link rel="stylesheet" href="../../recursos/estilos/geral.css">
+    <link rel="stylesheet" href="responsavel.css">
+    <script src="../../recursos/bibliotecas/supabase-2.119.1.js" defer=""></script>
+    <script src="../../recursos/scripts/configuracao.js" defer=""></script>
+    <script src="../../recursos/scripts/banco.js" defer=""></script>
+    <script src="../../recursos/scripts/dados.js" defer=""></script>
+    <script src="../../recursos/scripts/geral.js" defer=""></script>
+    <script src="responsavel.js" defer=""></script>
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
+    <header id="cabecalho" class="cabecalho">
+      <a class="marca" href="../inicio/inicio.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <div class="acoes-cabecalho">
+        <span class="usuario-cabecalho"></span>
+        <button type="button" class="botao ligacao" data-acao="sair"><span class="icone" aria-hidden="true">logout</span><span class="texto-botao"> Sair</span></button>
+      </div>
+    </header>
+    <section id="estado-conexao" class="painel pagina-acesso" role="status">
+      <p data-mensagem="">Conectando sua agenda...</p>
+      <button type="button" class="botao contorno" data-tentar-novamente="" hidden="">Tentar novamente</button>
+      <a class="botao suave" href="../../paginas/entrar/entrar.html">Ir para o acesso</a>
+    </section>
+    <main id="conteudo" tabindex="-1" data-pagina="responsavel" data-perfil="IDOSO" hidden="">
+      <div class="titulo-pagina">
+        <div>
+          <h1>Seu responsável</h1>
+          <p class="texto-secundario">Você escolhe quem pode acompanhar sua agenda.</p>
+        </div>
+      </div>
+      <article class="painel pilha" data-vinculo="ativo">
+        <div class="titulo-pessoa">
+          <span class="retrato-pessoa" aria-hidden="true">A</span>
+          <div>
+            <h2></h2>
+            <p class="texto-secundario">Responsável vinculado</p>
+          </div>
+        </div>
+        <p>Essa pessoa organiza seus medicamentos, compromissos e eventos. Você consulta a agenda e confirma o que realizou.</p>
+        <p class="texto-secundario">Para encerrar o vínculo, converse com seu responsável. Ele pode fazer o desvínculo na própria conta.</p>
+      </article>
+      <section class="painel pilha" data-categoria="medicamento" data-vinculo="sem-vinculo" hidden="">
+        <h2>Seu código de vínculo</h2>
+        <p>Compartilhe este código com a pessoa que vai acompanhar você.</p>
+        <p class="codigo-vinculo"></p>
+        <button type="button" class="botao roxo" data-acao="copiar-codigo"><span class="icone" aria-hidden="true">content_copy</span><span>Copiar código</span></button>
+        <p class="texto-secundario">A solicitação só vira vínculo depois que você aceitar.</p>
+      </section>
+      <section class="secao">
+        <div class="titulo-secao">
+          <h2>Solicitações recebidas</h2>
+        </div>
+        <div class="sem-registros" data-solicitacao="vazia">
+          <span class="icone" aria-hidden="true">event_available</span>
+          <div>
+            <h2>Nenhuma solicitação pendente</h2>
+            <p class="texto-secundario">Quando alguém solicitar um vínculo, ele aparecerá aqui.</p>
+          </div>
+        </div>
+        <template id="modelo-solicitacao">
+          <article class="painel solicitacao" data-solicitacao="pendente">
+            <div>
+              <h3></h3>
+              <p class="texto-secundario">Quer acompanhar sua agenda.</p>
+            </div>
+            <div class="linha">
+              <button type="button" class="botao principal" data-responder="aceitar">Aceitar</button>
+              <button type="button" class="botao contorno" data-responder="recusar">Recusar</button>
+            </div>
+          </article>
+        </template>
+      </section>
+      <div id="lista-solicitacoes">
+      </div>
+      <button class="botao suave" type="button" data-acao="recarregar-vinculos">Atualizar solicitações</button>
+    </main>
+    <nav class="navegacao-inferior" aria-label="Navegação principal" data-perfil="IDOSO">
+      <a class="item-navegacao" href="../inicio/inicio.html"><span class="icone" aria-hidden="true">home</span><span>Início</span></a>
+      <a class="item-navegacao" href="../agenda/agenda.html"><span class="icone" aria-hidden="true">event_note</span><span>Agenda</span></a>
+      <a class="item-navegacao" href="responsavel.html" aria-current="page"><span class="icone" aria-hidden="true">supervisor_account</span><span>Responsável</span></a>
+      <a class="item-navegacao" href="../perfil/perfil.html"><span class="icone" aria-hidden="true">account_circle</span><span>Perfil</span></a>
+    </nav>
+    <div id="aviso" class="aviso-flutuante" role="status" aria-live="polite" hidden="">
+    </div>
+    <dialog id="dialogo" aria-labelledby="titulo-dialogo">
+      <h2 id="titulo-dialogo">Confirmar ação</h2>
+      <p id="descricao-dialogo"></p>
+      <form method="dialog" class="acoes-dialogo">
+        <button class="botao contorno" value="cancel" autofocus=""><span class="texto-botao">Voltar</span></button>
+        <button class="botao principal" value="ok" id="confirmar-dialogo"><span class="texto-botao">Confirmar</span></button>
+      </form>
+    </dialog>
+  </body>
+</html>

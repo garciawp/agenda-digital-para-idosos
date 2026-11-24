@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#faf7f2">
+    <meta name="description" content="Agenda Digital para Idosos | Medicamentos, compromissos e eventos.">
+    <title>Início | Agenda Digital para Idosos</title>
+    <link rel="icon" type="image/png" href="../../recursos/imagens/logo.png">
+    <link rel="stylesheet" href="../../recursos/estilos/geral.css">
+    <link rel="stylesheet" href="inicio.css">
+    <script src="../../recursos/bibliotecas/supabase-2.119.1.js" defer=""></script>
+    <script src="../../recursos/scripts/configuracao.js" defer=""></script>
+    <script src="../../recursos/scripts/banco.js" defer=""></script>
+    <script src="../../recursos/scripts/dados.js" defer=""></script>
+    <script src="../../recursos/scripts/geral.js" defer=""></script>
+    <script src="inicio.js" defer=""></script>
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
+    <header id="cabecalho" class="cabecalho">
+      <a class="marca" href="inicio.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <div class="acoes-cabecalho">
+        <span class="usuario-cabecalho"></span>
+        <button type="button" class="botao ligacao" data-acao="sair"><span class="icone" aria-hidden="true">logout</span><span class="texto-botao"> Sair</span></button>
+      </div>
+    </header>
+    <section id="estado-conexao" class="painel pagina-acesso" role="status">
+      <p data-mensagem="">Conectando sua agenda...</p>
+      <button type="button" class="botao contorno" data-tentar-novamente="" hidden="">Tentar novamente</button>
+      <a class="botao suave" href="../../paginas/entrar/entrar.html">Ir para o acesso</a>
+    </section>
+    <main id="conteudo" tabindex="-1" data-pagina="inicio" data-perfil="IDOSO" hidden="">
+      <div class="titulo-pagina">
+        <div>
+          <h1>Bom dia, Maria</h1>
+          <p class="texto-secundario">Sua agenda de hoje.</p>
+        </div>
+        <div class="acoes-titulo">
+          <button type="button" class="botao suave" data-acao="atualizar"><span class="icone" aria-hidden="true">refresh</span><span class="texto-botao"> Atualizar</span></button>
+        </div>
+      </div>
+      <p class="data-do-dia"><span class="icone" aria-hidden="true">today</span><span data-data-hoje=""></span></p>
+      <div class="lembrete">
+        <span class="icone" aria-hidden="true">notifications</span>
+        <p>Uma atividade aguarda sua confirmação.</p>
+      </div>
+      <div class="organizacao-inicio">
+        <div class="dia-inicio">
+          <div id="atividade-destaque">
+          </div>
+          <div class="sem-registros" id="inicio-vazio">
+            Nenhuma atividade para hoje.
+          </div>
+          <section class="secao" id="secao-restantes">
+            <h2>Depois, no seu dia</h2>
+            <div class="grade" id="atividades-restantes">
+            </div>
+          </section>
+          <details class="secao" id="secao-confirmadas">
+            <summary>Confirmadas hoje</summary>
+            <div class="grade" id="atividades-confirmadas">
+            </div>
+          </details>
+          <a class="botao suave" href="../agenda/agenda.html">Ver a agenda completa</a>
+          <button type="button" class="botao contorno atualizar-inicio" data-acao="atualizar">Atualizar agenda</button>
+        </div>
+        <aside class="proximos-dias">
+          <h2>Nos próximos dias</h2>
+          <div id="lista-proximos-dias">
+          </div>
+          <p id="proximos-vazio">Sem atividades nos próximos sete dias.</p>
+        </aside>
+      </div>
+      <template id="modelo-cartao">
+        <article class="cartao ">
+          <div class="topo-cartao">
+            <time class="horario-cartao" data-campo="horario"></time>
+            <span class="categoria-cartao"><span class="icone" aria-hidden="true" data-campo="icone"></span><span data-campo="categoria"></span></span>
+          </div>
+          <div class="conteudo-cartao">
+            <h3 data-campo="titulo"></h3>
+            <p data-campo="dose"></p>
+            <p class="local-cartao"><span class="icone" aria-hidden="true">location_on</span><span data-campo="local"></span></p>
+          </div>
+          <div class="rodape-cartao">
+            <div class="detalhes-cartao">
+              <span class="etiqueta"><span class="icone" aria-hidden="true" data-campo="icone-estado"></span><span data-campo="estado"></span></span>
+              <details>
+                <summary>Ver informações</summary>
+                <p data-campo="informacoes"></p>
+              </details>
+              <details data-historico="">
+                <summary>Registro de confirmação</summary>
+                <p data-campo="historico"></p>
+              </details>
+            </div>
+            <button type="button" class="botao principal" data-acao="confirmar"><span class="icone" aria-hidden="true">check</span><span class="texto-botao">Concluí</span></button>
+          </div>
+        </article>
+      </template>
+      <template id="modelo-destaque">
+        <article class="cartao cartao-destaque">
+          <div class="topo-cartao">
+            <span class="categoria-cartao"><span class="icone" aria-hidden="true" data-campo="icone"></span><span data-campo="categoria"></span></span>
+          </div>
+          <div class="conteudo-destaque">
+            <time class="horario-cartao" data-campo="horario"></time>
+            <div class="conteudo-cartao">
+              <h3 data-campo="titulo"></h3>
+              <p data-campo="dose"></p>
+              <p class="local-cartao"><span class="icone" aria-hidden="true">location_on</span><span data-campo="local"></span></p>
+            </div>
+          </div>
+          <div class="rodape-cartao">
+            <div class="detalhes-cartao">
+              <span class="etiqueta"><span class="icone" aria-hidden="true" data-campo="icone-estado"></span><span data-campo="estado"></span></span>
+              <details>
+                <summary>Ver informações</summary>
+                <p data-campo="informacoes"></p>
+              </details>
+              <details data-historico="">
+                <summary>Registro de confirmação</summary>
+                <p data-campo="historico"></p>
+              </details>
+            </div>
+            <button type="button" class="botao principal confirmar-cartao" data-acao="confirmar"><span class="icone" aria-hidden="true">check</span><span class="texto-botao">Concluí</span></button>
+          </div>
+        </article>
+      </template>
+      <template id="modelo-proximo-dia">
+        <article class="cartao-proximos-dias">
+          <span class="categoria-cartao"><span class="icone" data-campo="icone" aria-hidden="true"></span><span data-campo="categoria"></span></span>
+          <p class="data-proxima"></p>
+          <div>
+            <h3></h3>
+            <p data-campo="horario"></p>
+          </div>
+          <a class="botao">Ver este dia</a>
+        </article>
+      </template>
+    </main>
+    <nav class="navegacao-inferior" aria-label="Navegação principal" data-perfil="IDOSO">
+      <a class="item-navegacao" href="inicio.html" aria-current="page"><span class="icone" aria-hidden="true">home</span><span>Início</span></a>
+      <a class="item-navegacao" href="../agenda/agenda.html"><span class="icone" aria-hidden="true">event_note</span><span>Agenda</span></a>
+      <a class="item-navegacao" href="../responsavel/responsavel.html"><span class="icone" aria-hidden="true">supervisor_account</span><span>Responsável</span></a>
+      <a class="item-navegacao" href="../perfil/perfil.html"><span class="icone" aria-hidden="true">account_circle</span><span>Perfil</span></a>
+    </nav>
+    <div id="aviso" class="aviso-flutuante" role="status" aria-live="polite" hidden="">
+    </div>
+    <dialog id="dialogo" aria-labelledby="titulo-dialogo">
+      <h2 id="titulo-dialogo">Confirmar ação</h2>
+      <p id="descricao-dialogo"></p>
+      <form method="dialog" class="acoes-dialogo">
+        <button class="botao contorno" value="cancel" autofocus=""><span class="texto-botao">Voltar</span></button>
+        <button class="botao principal" value="ok" id="confirmar-dialogo"><span class="texto-botao">Confirmar</span></button>
+      </form>
+    </dialog>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#faf7f2">
+    <meta name="description" content="Agenda Digital para Idosos | Medicamentos, compromissos e eventos.">
+    <title>Meu perfil | Agenda Digital para Idosos</title>
+    <link rel="icon" type="image/png" href="../../recursos/imagens/logo.png">
+    <link rel="stylesheet" href="../../recursos/estilos/geral.css">
+    <link rel="stylesheet" href="perfil.css">
+    <script src="../../recursos/bibliotecas/supabase-2.119.1.js" defer=""></script>
+    <script src="../../recursos/scripts/configuracao.js" defer=""></script>
+    <script src="../../recursos/scripts/banco.js" defer=""></script>
+    <script src="../../recursos/scripts/dados.js" defer=""></script>
+    <script src="../../recursos/scripts/geral.js" defer=""></script>
+    <script src="perfil.js" defer=""></script>
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
+    <header id="cabecalho" class="cabecalho">
+      <a class="marca" href="../pessoas/pessoas.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <div class="acoes-cabecalho">
+        <span class="usuario-cabecalho"></span>
+        <button type="button" class="botao ligacao" data-acao="sair"><span class="icone" aria-hidden="true">logout</span><span class="texto-botao"> Sair</span></button>
+      </div>
+    </header>
+    <section id="estado-conexao" class="painel pagina-acesso" role="status">
+      <p data-mensagem="">Conectando sua agenda...</p>
+      <button type="button" class="botao contorno" data-tentar-novamente="" hidden="">Tentar novamente</button>
+      <a class="botao suave" href="../../paginas/entrar/entrar.html">Ir para o acesso</a>
+    </section>
+    <main id="conteudo" tabindex="-1" data-pagina="perfil" data-perfil="RESPONSAVEL" hidden="">
+      <div class="titulo-pagina">
+        <div>
+          <h1>Meu perfil</h1>
+          <p class="texto-secundario">Suas informações e preferências.</p>
+        </div>
+      </div>
+      <div class="pessoa-perfil">
+        <span class="retrato-pessoa" aria-hidden="true"><span class="icone" aria-hidden="true">person</span></span>
+        <div>
+          <h2></h2>
+          <p>Responsável</p>
+        </div>
+      </div>
+      <div class="grade duas-colunas">
+        <section class="painel pilha secao-perfil">
+          <h2><span class="icone" aria-hidden="true">badge</span>Dados pessoais</h2>
+          <dl class="dados-perfil">
+            <div>
+              <dt>Nome completo</dt>
+              <dd data-dado="nome_completo"></dd>
+            </div>
+            <div>
+              <dt>Nome de exibição</dt>
+              <dd data-dado="nome_exibicao"></dd>
+            </div>
+            <div>
+              <dt>E-mail</dt>
+              <dd data-dado="email"></dd>
+            </div>
+            <div>
+              <dt>Nascimento</dt>
+              <dd data-dado="data_nascimento"></dd>
+            </div>
+            <div>
+              <dt>Telefone</dt>
+              <dd data-dado="telefone"></dd>
+            </div>
+          </dl>
+          <a class="botao suave" href="../editar-perfil/editar-perfil.html"><span class="icone" aria-hidden="true">edit</span>Editar meus dados</a>
+        </section>
+        <section class="painel pilha secao-perfil">
+          <h2><span class="icone" aria-hidden="true">tune</span>Leitura e avisos</h2>
+          <form class="formulario" data-formulario="preferencias" aria-describedby="erro-formulario" method="post">
+            <div class="erro-formulario" role="alert" tabindex="-1" hidden="" id="erro-formulario">
+            </div>
+            <label class="opcao-preferencia"><span><strong>Texto maior</strong><br><small class="texto-secundario">Aumenta os textos e os botões neste navegador.</small></span><input type="checkbox" name="fonte_ampliada" aria-label="Usar texto maior"></label>
+            <label class="opcao-preferencia"><span><strong>Avisos internos</strong><br><small class="texto-secundario">Lembretes enquanto você usa a agenda.</small></span><input type="checkbox" name="avisos_internos" checked="" aria-label="Mostrar avisos internos"></label>
+            <div class="campo">
+              <label for="aparencia">Cores da tela</label>
+              <select id="aparencia" name="aparencia">
+                <option value="automatico" selected="">Acompanhar este aparelho</option>
+                <option value="claro">Fundo claro</option>
+                <option value="escuro">Fundo escuro</option>
+              </select>
+              <small>A escolha das cores fica salva neste navegador.</small>
+            </div>
+            <button class="botao principal" type="submit"><span class="texto-botao">Salvar preferências</span></button>
+          </form>
+          <p class="texto-secundario">Os avisos aparecem enquanto a agenda está aberta.</p>
+        </section>
+      </div>
+      <div class="acoes-conta">
+        <a class="botao contorno" href="../alterar-acesso/alterar-acesso.html"><span class="icone" aria-hidden="true">lock</span>Alterar e-mail ou senha</a>
+      </div>
+    </main>
+    <nav class="navegacao-inferior" aria-label="Navegação principal" data-perfil="RESPONSAVEL">
+      <a class="item-navegacao" href="../pessoas/pessoas.html"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
+      <a class="item-navegacao" href="../inicio/inicio.html"><span class="icone" aria-hidden="true">home</span><span>Início</span></a>
+      <a class="item-navegacao" href="../agenda/agenda.html"><span class="icone" aria-hidden="true">event_note</span><span>Agenda</span></a>
+      <a class="item-navegacao" href="perfil.html" aria-current="page"><span class="icone" aria-hidden="true">account_circle</span><span>Perfil</span></a>
+    </nav>
+    <div id="aviso" class="aviso-flutuante" role="status" aria-live="polite" hidden="">
+    </div>
+    <dialog id="dialogo" aria-labelledby="titulo-dialogo">
+      <h2 id="titulo-dialogo">Confirmar ação</h2>
+      <p id="descricao-dialogo"></p>
+      <form method="dialog" class="acoes-dialogo">
+        <button class="botao contorno" value="cancel" autofocus=""><span class="texto-botao">Voltar</span></button>
+        <button class="botao principal" value="ok" id="confirmar-dialogo"><span class="texto-botao">Confirmar</span></button>
+      </form>
+    </dialog>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+/* Esta tela utiliza os componentes compartilhados em geral.css. */
+
+.codigo-vinculo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--cor-texto-roxo);
+    overflow-wrap: anywhere;
+}
+
+.solicitacao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+}

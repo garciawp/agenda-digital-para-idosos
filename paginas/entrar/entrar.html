@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#faf7f2">
+    <meta name="description" content="Agenda Digital para Idosos | Medicamentos, compromissos e eventos.">
+    <title>Que bom ter você aqui | Agenda Digital para Idosos</title>
+    <link rel="icon" type="image/png" href="../../recursos/imagens/logo.png">
+    <link rel="stylesheet" href="../../recursos/estilos/geral.css">
+    <link rel="stylesheet" href="entrar.css">
+    <script src="../../recursos/bibliotecas/supabase-2.119.1.js" defer=""></script>
+    <script src="../../recursos/scripts/configuracao.js" defer=""></script>
+    <script src="../../recursos/scripts/banco.js" defer=""></script>
+    <script src="../../recursos/scripts/dados.js" defer=""></script>
+    <script src="../../recursos/scripts/geral.js" defer=""></script>
+    <script src="entrar.js" defer=""></script>
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
+    <header id="cabecalho" class="cabecalho">
+      <a class="marca" href="../apresentacao/apresentacao.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <div class="acoes-cabecalho">
+        <a class="botao suave" href="entrar.html">Entrar</a>
+      </div>
+    </header>
+    <section id="estado-conexao" class="painel pagina-acesso" role="status">
+      <p data-mensagem="">Conectando sua agenda...</p>
+      <button type="button" class="botao contorno" data-tentar-novamente="" hidden="">Tentar novamente</button>
+      <a class="botao suave" href="../../paginas/entrar/entrar.html">Ir para o acesso</a>
+    </section>
+    <main id="conteudo" tabindex="-1" data-pagina="entrar" data-perfil="" hidden="">
+      <div class="pagina-acesso">
+        <div class="painel">
+          <div class="titulo-acesso">
+            <h1>Que bom ter você aqui</h1>
+            <p class="texto-secundario">Entre para acompanhar sua agenda.</p>
+          </div>
+          <form class="formulario" data-formulario="entrar" aria-describedby="erro-formulario" method="post">
+            <div class="erro-formulario" role="alert" tabindex="-1" hidden="" id="erro-formulario">
+            </div>
+            <div class="campo">
+              <label for="email">E-mail</label>
+              <input id="email" name="email" type="email" required="" autocomplete="username">
+            </div>
+            <div class="campo">
+              <label for="senha">Senha</label>
+              <div class="campo-senha">
+                <input id="senha" name="senha" type="password" autocomplete="current-password" required="">
+                <button type="button" class="botao suave" aria-label="Mostrar senha" aria-pressed="false" data-acao="mostrar-senha" data-destino="senha"><span class="icone" aria-hidden="true">visibility</span></button>
+              </div>
+            </div>
+            <button class="botao principal" type="submit"><span class="texto-botao">Entrar</span></button>
+            <a href="../recuperar-senha/recuperar-senha.html">Esqueci minha senha</a>
+          </form>
+        </div>
+        <p class="rodape-acesso">Ainda não tem conta? <a href="../cadastrar/cadastrar.html">Criar uma conta</a></p>
+      </div>
+    </main>
+    <nav class="navegacao-inferior" aria-label="Navegação principal" hidden="" data-perfil="">
+    </nav>
+    <div id="aviso" class="aviso-flutuante" role="status" aria-live="polite" hidden="">
+    </div>
+    <dialog id="dialogo" aria-labelledby="titulo-dialogo">
+      <h2 id="titulo-dialogo">Confirmar ação</h2>
+      <p id="descricao-dialogo"></p>
+      <form method="dialog" class="acoes-dialogo">
+        <button class="botao contorno" value="cancel" autofocus=""><span class="texto-botao">Voltar</span></button>
+        <button class="botao principal" value="ok" id="confirmar-dialogo"><span class="texto-botao">Confirmar</span></button>
+      </form>
+    </dialog>
+  </body>
+</html>

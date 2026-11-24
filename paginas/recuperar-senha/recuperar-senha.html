@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#faf7f2">
+    <meta name="description" content="Agenda Digital para Idosos | Medicamentos, compromissos e eventos.">
+    <title>Recuperar acesso | Agenda Digital para Idosos</title>
+    <link rel="icon" type="image/png" href="../../recursos/imagens/logo.png">
+    <link rel="stylesheet" href="../../recursos/estilos/geral.css">
+    <link rel="stylesheet" href="recuperar-senha.css">
+    <script src="../../recursos/bibliotecas/supabase-2.119.1.js" defer=""></script>
+    <script src="../../recursos/scripts/configuracao.js" defer=""></script>
+    <script src="../../recursos/scripts/banco.js" defer=""></script>
+    <script src="../../recursos/scripts/dados.js" defer=""></script>
+    <script src="../../recursos/scripts/geral.js" defer=""></script>
+    <script src="recuperar-senha.js" defer=""></script>
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
+    <header id="cabecalho" class="cabecalho">
+      <a class="marca" href="../apresentacao/apresentacao.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <div class="acoes-cabecalho">
+        <a class="botao suave" href="../entrar/entrar.html">Entrar</a>
+      </div>
+    </header>
+    <section id="estado-conexao" class="painel pagina-acesso" role="status">
+      <p data-mensagem="">Conectando sua agenda...</p>
+      <button type="button" class="botao contorno" data-tentar-novamente="" hidden="">Tentar novamente</button>
+      <a class="botao suave" href="../../paginas/entrar/entrar.html">Ir para o acesso</a>
+    </section>
+    <main id="conteudo" tabindex="-1" data-pagina="recuperar" data-perfil="" hidden="">
+      <div class="pagina-acesso">
+        <div class="painel">
+          <div class="titulo-acesso">
+            <h1>Recuperar acesso</h1>
+            <p class="texto-secundario">Informe o e-mail da sua conta para receber um código de recuperação.</p>
+          </div>
+          <form class="formulario" data-formulario="recuperar" aria-describedby="erro-formulario" method="post">
+            <div class="erro-formulario" role="alert" tabindex="-1" hidden="" id="erro-formulario">
+            </div>
+            <div class="campo">
+              <label for="email">E-mail da conta</label>
+              <input id="email" name="email" type="email" required="" autocomplete="email">
+            </div>
+            <button class="botao principal" type="submit"><span class="texto-botao">Solicitar código</span></button>
+            <p class="texto-secundario">O envio por e-mail ainda está em configuração nesta versão de demonstração.</p>
+            <a class="botao suave" href="../redefinir-senha/redefinir-senha.html">Já tenho um código</a>
+          </form>
+        </div>
+        <p class="rodape-acesso"><a href="../entrar/entrar.html">Voltar para entrar</a></p>
+      </div>
+      <p class="painel" role="status" id="resultado-formulario" hidden=""></p>
+    </main>
+    <nav class="navegacao-inferior" aria-label="Navegação principal" hidden="" data-perfil="">
+    </nav>
+    <div id="aviso" class="aviso-flutuante" role="status" aria-live="polite" hidden="">
+    </div>
+    <dialog id="dialogo" aria-labelledby="titulo-dialogo">
+      <h2 id="titulo-dialogo">Confirmar ação</h2>
+      <p id="descricao-dialogo"></p>
+      <form method="dialog" class="acoes-dialogo">
+        <button class="botao contorno" value="cancel" autofocus=""><span class="texto-botao">Voltar</span></button>
+        <button class="botao principal" value="ok" id="confirmar-dialogo"><span class="texto-botao">Confirmar</span></button>
+      </form>
+    </dialog>
+  </body>
+</html>
