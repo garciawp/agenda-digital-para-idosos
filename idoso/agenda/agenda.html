@@ -45,15 +45,15 @@
         <button type="button" class="botao suave" data-acao="mudar-dia" data-passo="-1"><span class="icone" aria-hidden="true">chevron_left</span><span class="texto-botao">Dia anterior</span></button>
         <div class="selecionar-data">
           <label for="data-agenda">Escolher uma data</label>
-          <input type="date" id="data-agenda" value="2026-11-19" min="2021-11-19" max="2031-11-19">
+          <input type="date" id="data-agenda">
         </div>
         <button type="button" class="botao suave" data-acao="mudar-dia" data-passo="1"><span class="texto-botao">Próximo dia</span><span class="icone" aria-hidden="true">chevron_right</span></button>
       </div>
       <div class="linha">
-        <button type="button" class="botao suave" aria-expanded="false" data-acao="abrir-calendario"><span class="icone" aria-hidden="true">calendar_month</span><span class="texto-botao">Abrir calendário</span></button>
+        <button type="button" class="botao suave" aria-expanded="false" aria-controls="calendario" data-acao="abrir-calendario"><span class="icone" aria-hidden="true">calendar_month</span><span class="texto-botao">Abrir calendário</span></button>
         <button type="button" class="botao suave" data-acao="voltar-hoje"><span class="icone" aria-hidden="true">today</span><span class="texto-botao">Voltar para hoje</span></button>
       </div>
-      <section class="painel painel-calendario" hidden="">
+      <section id="calendario" class="painel painel-calendario" hidden="">
         <div class="linha-mes">
           <button type="button" class="botao suave" aria-label="Mês anterior" data-acao="mudar-mes" data-passo="-1"><span class="icone" aria-hidden="true">chevron_left</span></button>
           <h2>novembro de 2026</h2>
@@ -104,7 +104,7 @@
       <section class="secao">
         <div class="titulo-secao">
           <h2 id="titulo-data">Atividades de hoje</h2>
-          <span class="texto-secundario" id="quantidade-atividades">5 atividades</span>
+          <span class="texto-secundario" id="quantidade-atividades" role="status"></span>
         </div>
         <div class="grade" id="lista-agenda">
         </div>

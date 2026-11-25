@@ -20,7 +20,7 @@
   <body>
     <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
     <header id="cabecalho" class="cabecalho">
-      <a class="marca" href="../pessoas/pessoas.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <a class="marca" href="../inicio/inicio.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
       <div class="acoes-cabecalho">
         <span class="usuario-cabecalho"></span>
         <button type="button" class="botao ligacao" data-acao="sair"><span class="icone" aria-hidden="true">logout</span><span class="texto-botao"> Sair</span></button>
@@ -63,23 +63,13 @@
             </div>
             <div class="campo">
               <label for="id_categoria">Categoria</label>
-              <select name="id_categoria" id="id_categoria" required="">
-                <option value="1">Medicamento</option>
-                <option value="2">Aniversário</option>
-                <option value="3">Igreja</option>
-                <option value="4">Consulta</option>
-                <option value="5">Exame</option>
-                <option value="6">Atividade física</option>
-                <option value="7">Família</option>
-                <option value="8">Lazer</option>
-                <option value="9">Outros</option>
-              </select>
+              <select name="id_categoria" id="id_categoria" required=""></select>
             </div>
           </div>
           <div class="campo">
             <label for="titulo">Título</label>
-            <input id="titulo" name="titulo" type="text" required="" minlength="2" maxlength="150">
-            <small>Exemplo: consulta com dentista ou medicamento da manhã.</small>
+            <input id="titulo" name="titulo" type="text" required="" minlength="2" maxlength="150" aria-describedby="ajuda-titulo">
+            <small id="ajuda-titulo">Exemplo: consulta com dentista ou medicamento da manhã.</small>
           </div>
           <div id="campos-medicamento" class="pilha" hidden="">
             <div class="campo">
@@ -125,7 +115,7 @@
               <label><input type="checkbox" name="dias_semana" value="6" disabled="">Sáb</label>
             </div>
           </fieldset>
-          <fieldset>
+          <fieldset class="horarios-atividade">
             <legend>Horários</legend>
             <p class="texto-secundario">Informe o horário de início.</p>
             <div id="lista-horarios">
@@ -222,8 +212,8 @@
       </section>
     </main>
     <nav class="navegacao-inferior" aria-label="Navegação principal" data-perfil="RESPONSAVEL">
-      <a class="item-navegacao" href="../pessoas/pessoas.html"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
       <a class="item-navegacao" href="../inicio/inicio.html"><span class="icone" aria-hidden="true">home</span><span>Início</span></a>
+      <a class="item-navegacao" href="../pessoas/pessoas.html"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
       <a class="item-navegacao" href="../agenda/agenda.html" aria-current="page"><span class="icone" aria-hidden="true">event_note</span><span>Agenda</span></a>
       <a class="item-navegacao" href="../perfil/perfil.html"><span class="icone" aria-hidden="true">account_circle</span><span>Perfil</span></a>
     </nav>

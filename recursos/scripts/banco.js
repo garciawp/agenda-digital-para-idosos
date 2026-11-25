@@ -3,6 +3,7 @@ let clienteSupabase;
 let contextoAtual;
 let idIdosoAtual;
 let vinculoAtual;
+let sessaoRecuperacao = false;
 
 function obterCliente() {
     if (location.protocol === 'file:') {
@@ -14,12 +15,15 @@ function obterCliente() {
             auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
             global: {
                 fetch: function (endereco, opcoes) {
+                    if (!AbortSignal.timeout || (opcoes?.signal && !AbortSignal.any)) return fetch(endereco, opcoes);
                     const sinal = AbortSignal.timeout(20000);
                     return fetch(endereco, { ...opcoes, signal: opcoes?.signal ? AbortSignal.any([opcoes.signal, sinal]) : sinal });
                 }
             }
         });
         clienteSupabase.auth.onAuthStateChange(function (evento) {
+            if (evento === 'PASSWORD_RECOVERY') sessaoRecuperacao = true;
+            if (evento === 'SIGNED_OUT') sessaoRecuperacao = false;
             if (evento === 'SIGNED_OUT' && document.querySelector('main').dataset.perfil) {
                 location.replace(new URL('paginas/entrar/entrar.html', enderecoRaiz));
             }
@@ -78,7 +82,7 @@ function abrirPagina(caminho, parametros = {}) {
 }
 
 function entradaDoPerfil(perfil) {
-    return perfil === 'IDOSO' ? 'idoso/inicio/inicio.html' : 'responsavel/pessoas/pessoas.html';
+    return perfil === 'IDOSO' ? 'idoso/inicio/inicio.html' : 'responsavel/inicio/inicio.html';
 }
 
 function nomePessoa(pessoa) {
@@ -92,9 +96,14 @@ async function carregarContexto() {
     let { data: usuario, error } = await cliente.from('usuarios').select('*').eq('id_usuario', acesso.user.id).maybeSingle();
     if (error) throw error;
     if (!usuario) {
-        const cadastro = acesso.user.user_metadata;
+        const cadastro = acesso.user.user_metadata ?? {};
         if (!['IDOSO', 'RESPONSAVEL'].includes(cadastro.tipo_perfil) || !cadastro.nome_completo) throw new Error('Esta conta não possui os dados de cadastro da agenda.');
-        const resultado = await cliente.from('usuarios').insert({ id_usuario: acesso.user.id, tipo_perfil: cadastro.tipo_perfil, nome_completo: cadastro.nome_completo }).select().single();
+        const resultado = await cliente.from('usuarios').insert({
+            id_usuario: acesso.user.id, tipo_perfil: cadastro.tipo_perfil, nome_completo: cadastro.nome_completo,
+            nome_exibicao: cadastro.nome_exibicao ?? null, data_nascimento: cadastro.data_nascimento ?? null,
+            telefone: cadastro.telefone ?? null, contato_emergencia: cadastro.contato_emergencia ?? null,
+            telefone_emergencia: cadastro.telefone_emergencia ?? null
+        }).select().single();
         if (resultado.error && resultado.error.code !== '23505') throw resultado.error;
         usuario = resultado.data;
         if (!usuario) {
@@ -126,24 +135,30 @@ async function iniciarPagina(aoCarregar) {
             }
             guardarPreferencia('agenda.texto-ampliado', contextoAtual.usuario.fonte_ampliada ? 'sim' : 'nao');
             aplicarPreferencias();
-            document.querySelector('.usuario-cabecalho').textContent = nomePessoa(contextoAtual.usuario) + ' | ' + (perfil === 'IDOSO' ? 'Pessoa idosa' : 'Responsável');
+            document.querySelector('.usuario-cabecalho').textContent = nomePessoa(contextoAtual.usuario) + ' | ' + (perfil === 'IDOSO' ? 'Minha agenda' : 'Responsável');
             const pagina = principal.dataset.pagina;
             if (perfil === 'IDOSO') idIdosoAtual = contextoAtual.usuario.id_usuario;
-            else if (!['pessoas', 'perfil', 'conta', 'editar-perfil', 'vincular'].includes(pagina)) {
-                idIdosoAtual = new URLSearchParams(location.search).get('idoso');
+            const idSolicitado = new URLSearchParams(location.search).get('idoso');
+            const geral = pagina === 'inicio' || pagina === 'agenda';
+            if (perfil === 'RESPONSAVEL' && (!geral || idSolicitado) && !['pessoas', 'perfil', 'conta', 'editar-perfil', 'vincular'].includes(pagina)) {
+                idIdosoAtual = idSolicitado;
                 vinculoAtual = contextoAtual.vinculos.find(function (vinculo) { return vinculo.id_idoso === idIdosoAtual && vinculo.situacao === 'ACEITO'; });
                 if (!idIdosoAtual || !vinculoAtual) {
                     location.replace(enderecoPagina('responsavel/pessoas/pessoas.html')); return;
                 }
                 preencherTexto('.pessoa-selecionada strong', nomePessoa(vinculoAtual));
                 preencherTexto('.pessoa-selecionada .retrato-pessoa', nomePessoa(vinculoAtual).charAt(0).toUpperCase());
-                document.querySelectorAll('a[href]').forEach(function (ligacao) {
+                document.querySelectorAll('main a[href]').forEach(function (ligacao) {
                     const endereco = new URL(ligacao.href);
                     if (/\/responsavel\/(inicio|agenda|atividades|cadastrar-atividade|editar-atividade|dados-do-idoso|editar-idoso)\//.test(endereco.pathname)) {
                         endereco.searchParams.set('idoso', idIdosoAtual);
                         ligacao.href = endereco.href;
                     }
                 });
+            }
+            if (perfil === 'RESPONSAVEL' && geral) {
+                document.querySelectorAll('[data-pessoa-individual]').forEach(function (elemento) { elemento.hidden = !vinculoAtual; });
+                document.querySelectorAll('[data-todas-pessoas]').forEach(function (elemento) { elemento.hidden = Boolean(vinculoAtual); });
             }
         }
         await aoCarregar(data.session);

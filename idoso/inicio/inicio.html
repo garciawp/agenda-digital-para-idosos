@@ -36,9 +36,6 @@
           <h1>Bom dia, Maria</h1>
           <p class="texto-secundario">Sua agenda de hoje.</p>
         </div>
-        <div class="acoes-titulo">
-          <button type="button" class="botao suave" data-acao="atualizar"><span class="icone" aria-hidden="true">refresh</span><span class="texto-botao"> Atualizar</span></button>
-        </div>
       </div>
       <p class="data-do-dia"><span class="icone" aria-hidden="true">today</span><span data-data-hoje=""></span></p>
       <div class="lembrete">
@@ -62,8 +59,10 @@
             <div class="grade" id="atividades-confirmadas">
             </div>
           </details>
-          <a class="botao suave" href="../agenda/agenda.html">Ver a agenda completa</a>
-          <button type="button" class="botao contorno atualizar-inicio" data-acao="atualizar">Atualizar agenda</button>
+          <div class="linha acoes-agenda-inicio">
+            <a class="botao suave" href="../agenda/agenda.html">Ver a agenda completa</a>
+            <button type="button" class="botao contorno" data-acao="atualizar"><span class="icone" aria-hidden="true">refresh</span>Atualizar agenda</button>
+          </div>
         </div>
         <aside class="proximos-dias">
           <h2>Nos próximos dias</h2>

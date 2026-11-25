@@ -9,19 +9,3 @@
 
 
 }
-
-@media (max-width: 620px) {
-    main[data-pagina="inicio"][data-perfil="IDOSO"] .titulo-pagina p, main[data-pagina="inicio"][data-perfil="IDOSO"] .acoes-titulo {
-        display: none;
-    }
-
-
-}
-
-@media (max-width: 620px) {
-    main[data-perfil="IDOSO"] .atualizar-inicio {
-        display: inline-flex;
-    }
-
-
-}

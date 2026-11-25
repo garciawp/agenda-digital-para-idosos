@@ -1,1 +1,10 @@
-iniciarPagina(async function(){const proprio=document.querySelector('main').dataset.pagina==='editar-perfil';const pessoa=proprio?contextoAtual.usuario:await conferirResposta(obterCliente().from('usuarios').select('*').eq('id_usuario',idIdosoAtual).single());const f=document.querySelector('form[data-formulario]');preencherCampos(f,{...pessoa,nome_contato_emergencia:pessoa.contato_emergencia,telefone_contato_emergencia:pessoa.telefone_emergencia});prepararFormulario(f,async function(){await salvarDadosPessoais(f,pessoa.id_usuario);abrirPagina(proprio?'responsavel/perfil/perfil.html':'responsavel/dados-do-idoso/dados-do-idoso.html',{idoso:proprio?null:idIdosoAtual});});});
+iniciarPagina(async function () {
+    const pessoa = contextoAtual.usuario;
+    const formulario = document.querySelector("form[data-formulario]");
+    formulario.elements.data_nascimento.max = hojeAgenda();
+    preencherCampos(formulario, pessoa);
+    prepararFormulario(formulario, async function () {
+        await salvarDadosPessoais(formulario, pessoa);
+        abrirPagina("responsavel/perfil/perfil.html");
+    });
+});

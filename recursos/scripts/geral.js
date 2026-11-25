@@ -140,10 +140,19 @@ function preencherCategoria(cartao, atividade) {
     preencherTexto('[data-campo="icone"]', atividade.icone, cartao);
 }
 
+function preencherPessoaDoCartao(cartao, atividade) {
+    const campo = cartao.querySelector('[data-campo="pessoa"]');
+    if (campo) {
+        campo.hidden = !atividade.pessoa;
+        campo.textContent = atividade.pessoa ?? "";
+    }
+}
+
 function criarCartao(atividade, modelo, aoAtualizar) {
     const cartao = repetirModelo(modelo);
     preencherCategoria(cartao, atividade);
     preencherTexto('[data-campo="titulo"]', atividade.titulo, cartao);
+    preencherPessoaDoCartao(cartao, atividade);
     preencherTexto('[data-campo="horario"]', atividade.horario, cartao);
     cartao.querySelector('time').dateTime = atividade.data_hora_prevista;
     preencherTexto('[data-campo="dose"]', atividade.dose, cartao);
@@ -168,7 +177,7 @@ function criarCartao(atividade, modelo, aoAtualizar) {
     const confirmar = cartao.querySelector('[data-acao="confirmar"]');
     const concluida = atividade.estado === 'CONCLUIDO';
     if (confirmar) {
-        confirmar.hidden = atividade.estado === 'CANCELADO' || atividade.data > hojeAgenda();
+        confirmar.hidden = atividade.arquivada || atividade.estado === 'CANCELADO' || atividade.data > hojeAgenda();
         confirmar.classList.toggle('principal', !concluida);
         confirmar.classList.toggle('contorno', concluida);
         preencherTexto('.texto-botao', concluida ? 'Desfazer confirmação' : (atividade.tipo === 'MEDICAMENTO' ? 'Já tomei' : 'Concluí'), confirmar);
@@ -179,23 +188,23 @@ function criarCartao(atividade, modelo, aoAtualizar) {
                 await aoAtualizar();
                 mostrarAviso(concluida ? 'Confirmação desfeita.' : 'Confirmação registrada.');
             };
-            if (concluida) pedirConfirmacao('Desfazer confirmação?', 'A atividade voltará a aparecer sem confirmação. O registro voltará a ficar sem confirmação.', gravar);
+            if (concluida) pedirConfirmacao('Desfazer confirmação?', 'A atividade voltará a aparecer sem confirmação.', gravar);
             else executarAcao(confirmar, gravar);
         });
     }
-    const historico = cartao.querySelector('[data-historico]');
     preencherTexto('[data-campo="historico"]', atividade.confirmada_em ? 'Confirmada em ' + new Date(atividade.confirmada_em).toLocaleString('pt-BR') : 'Ainda não há confirmação registrada.', cartao);
     return cartao;
 }
 
 async function prepararInicio() {
     const perfil = contextoAtual.usuario.tipo_perfil;
-    const nome = perfil === 'IDOSO' ? nomePessoa(contextoAtual.usuario) : nomePessoa(vinculoAtual);
-    preencherTexto('main h1', perfil === 'IDOSO' ? 'Olá, ' + nome : 'Agenda de ' + nome);
-    document.title = (perfil === 'IDOSO' ? 'Início' : 'Agenda de ' + nome) + ' | Agenda Digital para Idosos';
-    preencherTexto('[data-data-hoje]', formatarData(hojeAgenda(), true));
+    const titulo = perfil === 'IDOSO' ? 'Olá, ' + nomePessoa(contextoAtual.usuario)
+        : vinculoAtual ? 'Agenda de ' + nomePessoa(vinculoAtual) : 'Início';
+    preencherTexto('main h1', titulo);
+    document.title = (vinculoAtual ? titulo : 'Início') + ' | Agenda Digital para Idosos';
     async function atualizar() {
         const hoje = hojeAgenda();
+        preencherTexto('[data-data-hoje]', formatarData(hoje, true));
         const atividades = await consultarAgenda(hoje, somarDias(hoje, 7));
         const dia = atividades.filter(function (item) { return item.data === hoje && item.estado !== 'CANCELADO'; });
         const pendentes = dia.filter(function (item) { return item.estado !== 'CONCLUIDO'; });
@@ -211,6 +220,11 @@ async function prepararInicio() {
         document.getElementById('secao-confirmadas').hidden = !concluidas.length;
         preencherTexto('#secao-confirmadas > summary', 'Confirmadas hoje (' + concluidas.length + ')');
         document.getElementById('inicio-vazio').hidden = dia.length > 0;
+        if (perfil === 'RESPONSAVEL') {
+            const temVinculo = contextoAtual.vinculos.some(vinculo => vinculo.situacao === 'ACEITO');
+            preencherTexto('#inicio-vazio', temVinculo ? 'Nenhuma atividade para hoje.'
+                : 'Você ainda não acompanha nenhuma pessoa. Abra Pessoas para enviar um pedido de vínculo.');
+        }
         const lembrete = document.querySelector('.lembrete');
         const aguardando = pendentes.filter(function (item) { return item.estado === 'AGUARDANDO'; }).length;
         lembrete.hidden = !contextoAtual.usuario.avisos_internos || !aguardando;
@@ -222,6 +236,7 @@ async function prepararInicio() {
             const cartao = repetirModelo('modelo-proximo-dia');
             preencherCategoria(cartao, item);
             preencherTexto('h3', item.titulo, cartao);
+            preencherPessoaDoCartao(cartao, item);
             preencherTexto('.data-proxima', formatarData(item.data, true), cartao);
             preencherTexto('[data-campo="horario"]', item.horario, cartao);
             cartao.querySelector('a').href = enderecoPagina(perfil === 'IDOSO' ? 'idoso/agenda/agenda.html' : 'responsavel/agenda/agenda.html', { data: item.data, idoso: perfil === 'RESPONSAVEL' ? idIdosoAtual : null });
@@ -234,7 +249,9 @@ async function prepararInicio() {
 }
 
 aplicarPreferencias();
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change', aplicarPreferencias);
+const temaDoSistema = matchMedia('(prefers-color-scheme: dark)');
+if (temaDoSistema.addEventListener) temaDoSistema.addEventListener('change', aplicarPreferencias);
+else temaDoSistema.addListener(aplicarPreferencias);
 document.querySelectorAll('[data-acao="mostrar-senha"]').forEach(function (botao) {
     botao.addEventListener('click', function () {
         const campo = document.getElementById(botao.dataset.destino);

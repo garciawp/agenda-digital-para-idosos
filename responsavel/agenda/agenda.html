@@ -20,7 +20,7 @@
   <body>
     <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
     <header id="cabecalho" class="cabecalho">
-      <a class="marca" href="../pessoas/pessoas.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <a class="marca" href="../inicio/inicio.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
       <div class="acoes-cabecalho">
         <span class="usuario-cabecalho"></span>
         <button type="button" class="botao ligacao" data-acao="sair"><span class="icone" aria-hidden="true">logout</span><span class="texto-botao"> Sair</span></button>
@@ -32,7 +32,7 @@
       <a class="botao suave" href="../../paginas/entrar/entrar.html">Ir para o acesso</a>
     </section>
     <main id="conteudo" tabindex="-1" data-pagina="agenda" data-perfil="RESPONSAVEL" hidden="">
-      <div class="pessoa-selecionada">
+      <div class="pessoa-selecionada" data-pessoa-individual>
         <div class="titulo-pessoa">
           <span class="retrato-pessoa" aria-hidden="true"></span>
           <div>
@@ -45,26 +45,28 @@
       <div class="titulo-pagina">
         <div>
           <h1>Agenda</h1>
-          <p class="texto-secundario">Escolha uma data para ver as atividades.</p>
+          <p class="texto-secundario" data-pessoa-individual>Escolha uma data para ver as atividades.</p>
+          <p class="texto-secundario" data-todas-pessoas>Escolha uma data para ver as atividades das pessoas que você acompanha.</p>
         </div>
         <div class="acoes-titulo">
           <button type="button" class="botao suave" data-acao="atualizar"><span class="icone" aria-hidden="true">refresh</span><span class="texto-botao"> Atualizar</span></button>
-          <a class="botao principal" href="../cadastrar-atividade/cadastrar-atividade.html"><span class="icone" aria-hidden="true">add</span>Nova atividade</a>
+          <a class="botao principal" href="../cadastrar-atividade/cadastrar-atividade.html" data-pessoa-individual><span class="icone" aria-hidden="true">add</span>Nova atividade</a>
+          <a class="botao principal" href="../pessoas/pessoas.html" data-todas-pessoas>Escolher pessoa</a>
         </div>
       </div>
       <div class="barra-data">
         <button type="button" class="botao suave" data-acao="mudar-dia" data-passo="-1"><span class="icone" aria-hidden="true">chevron_left</span><span class="texto-botao">Dia anterior</span></button>
         <div class="selecionar-data">
           <label for="data-agenda">Escolher uma data</label>
-          <input type="date" id="data-agenda" value="2026-11-19" min="2021-11-19" max="2031-11-19">
+          <input type="date" id="data-agenda">
         </div>
         <button type="button" class="botao suave" data-acao="mudar-dia" data-passo="1"><span class="texto-botao">Próximo dia</span><span class="icone" aria-hidden="true">chevron_right</span></button>
       </div>
       <div class="linha">
-        <button type="button" class="botao suave" aria-expanded="false" data-acao="abrir-calendario"><span class="icone" aria-hidden="true">calendar_month</span><span class="texto-botao">Abrir calendário</span></button>
+        <button type="button" class="botao suave" aria-expanded="false" aria-controls="calendario" data-acao="abrir-calendario"><span class="icone" aria-hidden="true">calendar_month</span><span class="texto-botao">Abrir calendário</span></button>
         <button type="button" class="botao suave" data-acao="voltar-hoje"><span class="icone" aria-hidden="true">today</span><span class="texto-botao">Voltar para hoje</span></button>
       </div>
-      <section class="painel painel-calendario" hidden="">
+      <section id="calendario" class="painel painel-calendario" hidden="">
         <div class="linha-mes">
           <button type="button" class="botao suave" aria-label="Mês anterior" data-acao="mudar-mes" data-passo="-1"><span class="icone" aria-hidden="true">chevron_left</span></button>
           <h2>novembro de 2026</h2>
@@ -115,7 +117,7 @@
       <section class="secao">
         <div class="titulo-secao">
           <h2 id="titulo-data">Atividades de hoje</h2>
-          <span class="texto-secundario" id="quantidade-atividades">5 atividades</span>
+          <span class="texto-secundario" id="quantidade-atividades" role="status"></span>
         </div>
         <div class="grade" id="lista-agenda">
         </div>
@@ -127,7 +129,7 @@
           </div>
         </div>
       </section>
-      <div class="secao linha">
+      <div class="secao linha" data-pessoa-individual>
         <a href="../atividades/atividades.html" class="botao suave">Organizar atividades</a>
         <a href="../dados-do-idoso/dados-do-idoso.html" class="botao contorno">Dados da pessoa</a>
       </div>
@@ -139,6 +141,7 @@
           </div>
           <div class="conteudo-cartao">
             <h3 data-campo="titulo"></h3>
+            <p class="texto-secundario" data-campo="pessoa" hidden></p>
             <p data-campo="dose"></p>
             <p class="local-cartao"><span class="icone" aria-hidden="true">location_on</span><span data-campo="local"></span></p>
           </div>
@@ -159,8 +162,8 @@
       </template>
     </main>
     <nav class="navegacao-inferior" aria-label="Navegação principal" data-perfil="RESPONSAVEL">
-      <a class="item-navegacao" href="../pessoas/pessoas.html"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
       <a class="item-navegacao" href="../inicio/inicio.html"><span class="icone" aria-hidden="true">home</span><span>Início</span></a>
+      <a class="item-navegacao" href="../pessoas/pessoas.html"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
       <a class="item-navegacao" href="agenda.html" aria-current="page"><span class="icone" aria-hidden="true">event_note</span><span>Agenda</span></a>
       <a class="item-navegacao" href="../perfil/perfil.html"><span class="icone" aria-hidden="true">account_circle</span><span>Perfil</span></a>
     </nav>

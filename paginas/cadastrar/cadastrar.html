@@ -42,7 +42,7 @@
             <fieldset>
               <legend>Como você vai usar a agenda?</legend>
               <div class="escolha-perfil">
-                <label class="opcao-perfil"><input type="radio" name="tipo_perfil" value="IDOSO" checked="">Sou a pessoa idosa</label>
+                <label class="opcao-perfil"><input type="radio" name="tipo_perfil" value="IDOSO" checked="">Quero usar minha agenda</label>
                 <label class="opcao-perfil"><input type="radio" name="tipo_perfil" value="RESPONSAVEL">Sou responsável</label>
               </div>
             </fieldset>
@@ -50,6 +50,29 @@
               <label for="nome_completo">Nome completo</label>
               <input id="nome_completo" name="nome_completo" type="text" required="" maxlength="120" autocomplete="name" minlength="2">
             </div>
+            <div class="campo">
+              <label for="nome_exibicao">Apelido ou nome de exibição (opcional)</label>
+              <input id="nome_exibicao" name="nome_exibicao" type="text" maxlength="120" autocomplete="nickname">
+            </div>
+            <div class="campo">
+              <label for="data_nascimento">Data de nascimento (opcional)</label>
+              <input id="data_nascimento" name="data_nascimento" type="date" autocomplete="bday">
+            </div>
+            <div class="campo">
+              <label for="telefone">Telefone (opcional)</label>
+              <input id="telefone" name="telefone" type="tel" maxlength="30" autocomplete="tel">
+            </div>
+            <fieldset id="dados-emergencia">
+              <legend>Contato de emergência (opcional)</legend>
+              <div class="campo">
+                <label for="contato_emergencia">Nome do contato</label>
+                <input id="contato_emergencia" name="contato_emergencia" type="text" maxlength="120" autocomplete="section-emergencia name">
+              </div>
+              <div class="campo">
+                <label for="telefone_emergencia">Telefone do contato</label>
+                <input id="telefone_emergencia" name="telefone_emergencia" type="tel" maxlength="30" autocomplete="section-emergencia tel">
+              </div>
+            </fieldset>
             <div class="campo">
               <label for="email">E-mail</label>
               <input id="email" name="email" type="email" required="" maxlength="254" autocomplete="email">

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#faf7f2">
     <meta name="description" content="Agenda Digital para Idosos | Medicamentos, compromissos e eventos.">
-    <title>Vincular pessoa idosa | Agenda Digital para Idosos</title>
+    <title>Vincular uma pessoa | Agenda Digital para Idosos</title>
     <link rel="icon" type="image/png" href="../../recursos/imagens/logo.png">
     <link rel="stylesheet" href="../../recursos/estilos/geral.css">
     <link rel="stylesheet" href="vincular-idoso.css">
@@ -19,7 +19,7 @@
   <body>
     <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
     <header id="cabecalho" class="cabecalho">
-      <a class="marca" href="../pessoas/pessoas.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <a class="marca" href="../inicio/inicio.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
       <div class="acoes-cabecalho">
         <span class="usuario-cabecalho"></span>
         <button type="button" class="botao ligacao" data-acao="sair"><span class="icone" aria-hidden="true">logout</span><span class="texto-botao"> Sair</span></button>
@@ -33,7 +33,7 @@
     <main id="conteudo" tabindex="-1" data-pagina="vincular" data-perfil="RESPONSAVEL" hidden="">
       <div class="titulo-pagina">
         <div>
-          <h1>Vincular pessoa idosa</h1>
+          <h1>Vincular uma pessoa</h1>
           <p class="texto-secundario">A pessoa precisa ter criado uma conta própria.</p>
         </div>
       </div>
@@ -43,8 +43,8 @@
           </div>
           <div class="campo">
             <label for="codigo">Código de vínculo</label>
-            <input id="codigo" name="codigo" type="text" required="" maxlength="36" autocomplete="off" placeholder="Cole o código da conta do idoso">
-            <small>O código aparece na tela Responsável da pessoa idosa.</small>
+            <input id="codigo" name="codigo" type="text" required="" maxlength="36" autocomplete="off" placeholder="Cole o código de vínculo">
+            <small>Peça à pessoa que você acompanha o código que aparece na tela Responsável.</small>
           </div>
           <button type="submit" class="botao principal"><span class="texto-botao">Enviar solicitação</span></button>
           <a class="botao contorno" href="../pessoas/pessoas.html">Voltar</a>
@@ -52,8 +52,8 @@
       </section>
     </main>
     <nav class="navegacao-inferior" aria-label="Navegação principal" data-perfil="RESPONSAVEL">
-      <a class="item-navegacao" href="../pessoas/pessoas.html" aria-current="page"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
       <a class="item-navegacao" href="../inicio/inicio.html"><span class="icone" aria-hidden="true">home</span><span>Início</span></a>
+      <a class="item-navegacao" href="../pessoas/pessoas.html" aria-current="page"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
       <a class="item-navegacao" href="../agenda/agenda.html"><span class="icone" aria-hidden="true">event_note</span><span>Agenda</span></a>
       <a class="item-navegacao" href="../perfil/perfil.html"><span class="icone" aria-hidden="true">account_circle</span><span>Perfil</span></a>
     </nav>

@@ -19,7 +19,7 @@
   <body>
     <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
     <header id="cabecalho" class="cabecalho">
-      <a class="marca" href="../pessoas/pessoas.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
+      <a class="marca" href="../inicio/inicio.html"><img src="../../recursos/imagens/logo.png" alt=""><span>Agenda Digital<br>para Idosos</span></a>
       <div class="acoes-cabecalho">
         <span class="usuario-cabecalho"></span>
         <button type="button" class="botao ligacao" data-acao="sair"><span class="icone" aria-hidden="true">logout</span><span class="texto-botao"> Sair</span></button>
@@ -31,7 +31,7 @@
       <a class="botao suave" href="../../paginas/entrar/entrar.html">Ir para o acesso</a>
     </section>
     <main id="conteudo" tabindex="-1" data-pagina="inicio" data-perfil="RESPONSAVEL" hidden="">
-      <div class="pessoa-selecionada">
+      <div class="pessoa-selecionada" data-pessoa-individual>
         <div class="titulo-pessoa">
           <span class="retrato-pessoa" aria-hidden="true"></span>
           <div>
@@ -43,18 +43,19 @@
       </div>
       <div class="titulo-pagina">
         <div>
-          <h1>Dia de Maria</h1>
-          <p class="texto-secundario">Sua agenda de hoje.</p>
+          <h1>Início</h1>
+          <p class="texto-secundario" data-pessoa-individual>Agenda de hoje da pessoa selecionada.</p>
+          <p class="texto-secundario" data-todas-pessoas>Atividades de hoje das pessoas que você acompanha.</p>
         </div>
         <div class="acoes-titulo">
-          <button type="button" class="botao suave" data-acao="atualizar"><span class="icone" aria-hidden="true">refresh</span><span class="texto-botao"> Atualizar</span></button>
-          <a class="botao principal" href="../cadastrar-atividade/cadastrar-atividade.html"><span class="icone" aria-hidden="true">add</span>Nova atividade</a>
+          <a class="botao principal" href="../cadastrar-atividade/cadastrar-atividade.html" data-pessoa-individual><span class="icone" aria-hidden="true">add</span>Nova atividade</a>
+          <a class="botao principal" href="../pessoas/pessoas.html" data-todas-pessoas>Escolher pessoa</a>
         </div>
       </div>
       <p class="data-do-dia"><span class="icone" aria-hidden="true">today</span><span data-data-hoje=""></span></p>
       <div class="lembrete">
         <span class="icone" aria-hidden="true">notifications</span>
-        <p>Uma atividade aguarda a confirmação da pessoa idosa.</p>
+        <p>Uma atividade aguarda confirmação.</p>
       </div>
       <div class="organizacao-inicio">
         <div class="dia-inicio">
@@ -64,7 +65,7 @@
             Nenhuma atividade para hoje.
           </div>
           <section class="secao" id="secao-restantes">
-            <h2>Depois, no seu dia</h2>
+            <h2>Outras atividades de hoje</h2>
             <div class="grade" id="atividades-restantes">
             </div>
           </section>
@@ -73,8 +74,10 @@
             <div class="grade" id="atividades-confirmadas">
             </div>
           </details>
-          <a class="botao suave" href="../agenda/agenda.html">Ver a agenda completa</a>
-          <button type="button" class="botao contorno atualizar-inicio" data-acao="atualizar">Atualizar agenda</button>
+          <div class="linha acoes-agenda-inicio">
+            <a class="botao suave" href="../agenda/agenda.html">Ver a agenda completa</a>
+            <button type="button" class="botao contorno" data-acao="atualizar"><span class="icone" aria-hidden="true">refresh</span>Atualizar agenda</button>
+          </div>
         </div>
         <aside class="proximos-dias">
           <h2>Nos próximos dias</h2>
@@ -83,7 +86,7 @@
           <p id="proximos-vazio">Sem atividades nos próximos sete dias.</p>
         </aside>
       </div>
-      <div class="secao linha">
+      <div class="secao linha" data-pessoa-individual>
         <a href="../atividades/atividades.html" class="botao suave">Organizar atividades</a>
         <a href="../dados-do-idoso/dados-do-idoso.html" class="botao contorno">Dados da pessoa</a>
       </div>
@@ -95,6 +98,7 @@
           </div>
           <div class="conteudo-cartao">
             <h3 data-campo="titulo"></h3>
+            <p class="texto-secundario" data-campo="pessoa" hidden></p>
             <p data-campo="dose"></p>
             <p class="local-cartao"><span class="icone" aria-hidden="true">location_on</span><span data-campo="local"></span></p>
           </div>
@@ -122,6 +126,7 @@
             <time class="horario-cartao" data-campo="horario"></time>
             <div class="conteudo-cartao">
               <h3 data-campo="titulo"></h3>
+            <p class="texto-secundario" data-campo="pessoa" hidden></p>
               <p data-campo="dose"></p>
               <p class="local-cartao"><span class="icone" aria-hidden="true">location_on</span><span data-campo="local"></span></p>
             </div>
@@ -147,6 +152,7 @@
           <p class="data-proxima"></p>
           <div>
             <h3></h3>
+            <p class="texto-secundario" data-campo="pessoa" hidden></p>
             <p data-campo="horario"></p>
           </div>
           <a class="botao">Ver este dia</a>
@@ -154,8 +160,8 @@
       </template>
     </main>
     <nav class="navegacao-inferior" aria-label="Navegação principal" data-perfil="RESPONSAVEL">
-      <a class="item-navegacao" href="../pessoas/pessoas.html"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
       <a class="item-navegacao" href="inicio.html" aria-current="page"><span class="icone" aria-hidden="true">home</span><span>Início</span></a>
+      <a class="item-navegacao" href="../pessoas/pessoas.html"><span class="icone" aria-hidden="true">group</span><span>Pessoas</span></a>
       <a class="item-navegacao" href="../agenda/agenda.html"><span class="icone" aria-hidden="true">event_note</span><span>Agenda</span></a>
       <a class="item-navegacao" href="../perfil/perfil.html"><span class="icone" aria-hidden="true">account_circle</span><span>Perfil</span></a>
     </nav>
